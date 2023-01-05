@@ -18,7 +18,18 @@ else
 fi
 
 echo "Load config.gz into $DESKTOP_DIRECTORY directory..."
-zcat /proc/config.gz > $DESKTOP_DIRECTORY/config.txt
+
+if [ -f "/proc/config.gz" ]; then
+    echo "Take config from /proc/config.gz..."
+    zcat /proc/config.gz > $DESKTOP_DIRECTORY/config.txt
+elif [ -f "/boot/config-$(uname -r)" ]; then
+    echo "Take config from /boot/config-$(uname -r)..."
+    cat /boot/config-$(uname -r) > $DESKTOP_DIRECTORY/config.txt
+else
+    echo "Kernel config not found! Abort."
+    exit 1
+fi
+
 sleep 1
 
 echo "Take info for possibile clean-up..."
