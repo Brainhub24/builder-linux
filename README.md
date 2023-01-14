@@ -18,3 +18,16 @@ My kernel fork
 ---
 
 I forked the kernel and added some schedulers etc... [Try it](https://github.com/Peppe289/linux)
+
+Clang LTO Full resource
+---
+
+After [Clang LTO Changes](https://github.com/Peppe289/builder-linux/commit/77777e8a7d4f86bcbc5583625f830be421f59a8e) we need to use `CC=clang LD=ld.lld LLVM=1 LLVM_IAS=1` flags:
+
+    make menuconfig CC=clang LD=ld.lld LLVM=1 LLVM_IAS=1
+
+    make -j$(nproc) CC=clang LD=ld.lld LLVM=1 LLVM_IAS=1
+
+    make modules CC=clang LD=ld.lld LLVM=1 LLVM_IAS=1
+
+    make bzImage CC=clang LD=ld.lld LLVM=1 LLVM_IAS=1
